@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Envelope + Letter (Open/Close on Click)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #fff;
+            --bg-color: #ffe4e1;
+            --bg-envelope-color: #ffcbf2;
+            --envelope-tab: #ffc3a0;
+            --envelope-cover: #ffabcb;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --txt-color: #444;
+            --heart-color: #ff69b4;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary);
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+        .envelope-wrapper {
+            position: relative;
+            background: var(--bg-envelope-color);
+            box-shadow: 0 0 40px var(--shadow-color);
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .envelope {
+            position: relative;
+            width: 400px;
+            height: 300px;
+        }
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            border-top: 170px solid var(--envelope-tab);
+            border-right: 200px solid transparent;
+            border-left: 200px solid transparent;
+            transform-origin: top;
+            transition: all 0.5s ease-in-out 0.7s;
+        }
+        .envelope::after {
+            content: "";
+            position: absolute;
+            z-index: 2;
+            width: 0px;
+            height: 0px;
+            border-top: 170px solid transparent;
+            border-right: 200px solid var(--envelope-cover);
+            border-bottom: 130px solid var(--envelope-cover);
+            border-left: 200px solid var(--envelope-cover);
+        }
+        .letter {
+            position: absolute;
+            right: 22%;
+            bottom: 0;
+            width: 56%;
+            height: 85%;
+            background: var(--primary);
+            text-align: center;
+            transition: all 1s ease-in-out;
+            box-shadow: 0 0 5px var(--shadow-color);
+            padding: 20px 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .text {
+            color: var(--txt-color);
+            text-align: left;
+            font-size: 9px;
+        }
+        .heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--heart-color);
+            z-index: 4;
+            transform: translate(-50%, -50%) rotate(45deg);
+            transition: transform 0.5s ease-in-out 1s;
+            box-shadow: 0 1px 6px var(--shadow-color);
+            cursor: pointer;
+        }
+        .heart:before, 
+        .heart:after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--heart-color);
+            border-radius: 50%;
+        }
+        .heart:before {
+            top: -10px;
+        }
+        .heart:after {
+            right: 10px;
+        }
+        .flap .envelope::before {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+        .flap .letter {
+            bottom: 150px;
+            transform: scale(1.5);
+            transition-delay: 1s;
+        }
+        .flap .heart {
+            transform: rotate(90deg);
+            transition-delay: 0.4s;
+        }
+        .button-container {
+            text-align: center;
+            padding: 20px;
+        }
+        .cute-button {
+            background-color: #ffcbf2;
+            color: #6a0572;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cute-button:hover {
+            background-color: #ff8fab;
+            transform: translateY(-2px);
+        }
+        .cute-button:active {
+            background-color: #f58fc6;
+            transform: translateY(2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="envelope-wrapper" onclick="openLetter()">
+            <div class="envelope">
+                <div class="letter">
+                    <div class="text">
+                        <strong>Dear Lay,</strong>
+                        <p>
+                            &nbsp; 
+                            In your love, I find my peace,  
+                            With you, my heart will never cease.  
+                            Despite the world and what they say,  
+                            Together, we'll find our own way.
+                        </p>
+                        <p>
+                            &nbsp;
+                            Through every storm, by your side,  
+                            With gentle love, our hearts collide.  
+                            I promise you, with every beat,  
+                            My love for you is pure and sweet. 
+                        </p>
+                        <p style="text-align: right;"><strong>With all the love, Shmith</strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="heart"></div>
+        </div>
+    </div>
+    <div class="button-container">
+        <a href="ulit.html" class="cute-button">Click Me!</a>
+    </div>
+    <script>
+        const envelope = document.querySelector('.envelope-wrapper');
+
+        function openLetter() {
+            envelope.classList.toggle('flap');
+        }
+    </script>
+</body>
+</html>
